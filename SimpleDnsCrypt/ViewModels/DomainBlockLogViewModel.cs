@@ -164,13 +164,11 @@ namespace SimpleDnsCrypt.ViewModels
 							{
 								if (DnsCryptProxyManager.IsDnsCryptProxyRunning())
 								{
-									DnsCryptProxyManager.Restart();
-									await Task.Delay(Global.ServiceRestartTime).ConfigureAwait(false);
+									await DnsCryptProxyManager.Restart().ConfigureAwait(false);
 								}
 								else
 								{
-									DnsCryptProxyManager.Start();
-									await Task.Delay(Global.ServiceStartTime).ConfigureAwait(false);
+									await DnsCryptProxyManager.Start().ConfigureAwait(false);
 								}
 							}
 							else
@@ -179,8 +177,7 @@ namespace SimpleDnsCrypt.ViewModels
 								await Task.Delay(Global.ServiceInstallTime).ConfigureAwait(false);
 								if (DnsCryptProxyManager.IsDnsCryptProxyInstalled())
 								{
-									DnsCryptProxyManager.Start();
-									await Task.Delay(Global.ServiceStartTime).ConfigureAwait(false);
+									await DnsCryptProxyManager.Start().ConfigureAwait(false);
 								}
 							}
 						}
@@ -243,8 +240,7 @@ namespace SimpleDnsCrypt.ViewModels
 					DnscryptProxyConfigurationManager.SaveConfiguration();
 					if (DnsCryptProxyManager.IsDnsCryptProxyRunning())
 					{
-						DnsCryptProxyManager.Restart();
-						await Task.Delay(Global.ServiceRestartTime).ConfigureAwait(false);
+						await DnsCryptProxyManager.Restart().ConfigureAwait(false);
 					}
 					Execute.OnUIThread(() => { DomainBlockLogLines.Clear(); });
 				}
