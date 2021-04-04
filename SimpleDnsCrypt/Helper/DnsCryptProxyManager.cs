@@ -9,7 +9,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Security.AccessControl;
 using System.ServiceProcess;
-using System.Threading;
+using System.Threading.Tasks;
+using SimpleDnsCrypt.Extensions;
 
 namespace SimpleDnsCrypt.Helper
 {
@@ -86,15 +87,13 @@ namespace SimpleDnsCrypt.Helper
 		///     Restart the dnscrypt-proxy service.
 		/// </summary>
 		/// <returns><c>true</c> on success, otherwise <c>false</c></returns>
-		public static bool Restart()
+		public static async Task<bool> Restart()
 		{
 			try
 			{
 				var dnscryptService = new ServiceController { ServiceName = DnsCryptProxyServiceName };
-				dnscryptService.Stop();
-				Thread.Sleep(1000);
-				dnscryptService.Start();
-				return dnscryptService.Status == ServiceControllerStatus.Running;
+				await dnscryptService.StopAsync(TimeSpan.FromMilliseconds(Global.ServiceStopTime));
+				return await dnscryptService.StartAsync(TimeSpan.FromMilliseconds(Global.ServiceStartTime));
 			}
 			catch (Exception exception)
 			{
@@ -107,7 +106,7 @@ namespace SimpleDnsCrypt.Helper
 		///     Stop the dnscrypt-proxy service.
 		/// </summary>
 		/// <returns><c>true</c> on success, otherwise <c>false</c></returns>
-		public static bool Stop()
+		public static async Task<bool> Stop()
 		{
 			try
 			{
@@ -120,7 +119,7 @@ namespace SimpleDnsCrypt.Helper
 					case ServiceControllerStatus.PausePending:
 					case ServiceControllerStatus.StartPending:
 					case ServiceControllerStatus.Running:
-						dnscryptService.Stop();
+						await dnscryptService.StopAsync(TimeSpan.FromMilliseconds(Global.ServiceStopTime));
 						break;
 				}
 				return dnscryptService.Status == ServiceControllerStatus.Stopped;
@@ -136,7 +135,7 @@ namespace SimpleDnsCrypt.Helper
 		///     Start the dnscrypt-proxy service.
 		/// </summary>
 		/// <returns><c>true</c> on success, otherwise <c>false</c></returns>
-		public static bool Start()
+		public static async Task<bool> Start()
 		{
 			try
 			{
@@ -150,8 +149,7 @@ namespace SimpleDnsCrypt.Helper
 					case ServiceControllerStatus.PausePending:
 					case ServiceControllerStatus.Stopped:
 					case ServiceControllerStatus.StopPending:
-						dnscryptService.Start();
-						break;
+						return await dnscryptService.StartAsync(TimeSpan.FromMilliseconds(Global.ServiceStartTime));
 				}
 				return dnscryptService.Status == ServiceControllerStatus.Running;
 			}

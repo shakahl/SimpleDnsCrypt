@@ -55,11 +55,6 @@
 		public const string DnsCryptLogFile = "dnscrypt-proxy.log";
 
 		/// <summary>
-		///     Time we wait on a service restart (ms).
-		/// </summary>
-		public const int ServiceRestartTime = 5000;
-
-		/// <summary>
 		///     Time we wait on a service start (ms).
 		/// </summary>
 		public const int ServiceStartTime = 2500;

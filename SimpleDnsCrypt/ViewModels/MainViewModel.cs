@@ -817,13 +817,11 @@ namespace SimpleDnsCrypt.ViewModels
 						IsServiceInstalled = true;
 						if (DnsCryptProxyManager.IsDnsCryptProxyRunning())
 						{
-							await Task.Run(() => { DnsCryptProxyManager.Restart(); }).ConfigureAwait(false);
-							await Task.Delay(Global.ServiceRestartTime).ConfigureAwait(false);
+							await DnsCryptProxyManager.Restart().ConfigureAwait(false);
 						}
 						else
 						{
-							await Task.Run(() => { DnsCryptProxyManager.Start(); }).ConfigureAwait(false);
-							await Task.Delay(Global.ServiceStartTime).ConfigureAwait(false);
+							await DnsCryptProxyManager.Start().ConfigureAwait(false);
 						}
 					}
 					else
@@ -852,8 +850,7 @@ namespace SimpleDnsCrypt.ViewModels
 			if (IsResolverRunning)
 			{
 				// service is running, stop it
-				await Task.Run(() => { DnsCryptProxyManager.Stop(); }).ConfigureAwait(false);
-				await Task.Delay(Global.ServiceStopTime).ConfigureAwait(false);
+				await DnsCryptProxyManager.Stop().ConfigureAwait(false);
 				_isResolverRunning = DnsCryptProxyManager.IsDnsCryptProxyRunning();
 				NotifyOfPropertyChange(() => IsResolverRunning);
 			}
@@ -863,8 +860,7 @@ namespace SimpleDnsCrypt.ViewModels
 				{
 					IsServiceInstalled = true;
 					// service is installed, just start them
-					await Task.Run(() => { DnsCryptProxyManager.Start(); }).ConfigureAwait(false);
-					await Task.Delay(Global.ServiceStartTime).ConfigureAwait(false);
+					await DnsCryptProxyManager.Start().ConfigureAwait(false);
 					_isResolverRunning = DnsCryptProxyManager.IsDnsCryptProxyRunning();
 					NotifyOfPropertyChange(() => IsResolverRunning);
 				}
@@ -876,8 +872,7 @@ namespace SimpleDnsCrypt.ViewModels
 					if (DnsCryptProxyManager.IsDnsCryptProxyInstalled())
 					{
 						IsServiceInstalled = true;
-						await Task.Run(() => { DnsCryptProxyManager.Start(); }).ConfigureAwait(false);
-						await Task.Delay(Global.ServiceStartTime).ConfigureAwait(false);
+						await DnsCryptProxyManager.Start().ConfigureAwait(false);
 					}
 					else
 					{
@@ -1255,8 +1250,7 @@ namespace SimpleDnsCrypt.ViewModels
 
 			if (DnsCryptProxyManager.IsDnsCryptProxyRunning())
 			{
-				await Task.Run(() => { DnsCryptProxyManager.Stop(); }).ConfigureAwait(false);
-				await Task.Delay(Global.ServiceStopTime).ConfigureAwait(false);
+				await DnsCryptProxyManager.Stop().ConfigureAwait(false);
 			}
 
 			await Task.Run(() => { DnsCryptProxyManager.Uninstall(); }).ConfigureAwait(false);
