@@ -104,26 +104,6 @@
                         Margin="5"
                         Content="{lex:Loc Key=settings_start_in_tray}"
                         Cursor="Hand" Foreground="#FF575757" />
-                    <StackPanel Orientation="Vertical">
-                        <CheckBox IsChecked="{Binding IsAutoUpdateEnabled}"
-                                  Margin="5"
-                                  Content="{lex:Loc Key=settings_update_auto}"
-                                  Cursor="Hand" Foreground="#FF575757" />
-                        <CheckBox IsChecked="{Binding IsAutoUpdateSilentEnabled}"
-                                  Margin="5"
-                                  Content="{lex:Loc Key=settings_update_silent}"
-                                  Cursor="Hand" Foreground="#FF575757" />
-                        <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
-                            <TextBlock Foreground="#FF575757" Text="{lex:Loc Key=settings_update_channel}" VerticalAlignment="Center" />
-                            <ComboBox VerticalContentAlignment="Center" IsEnabled="False"
-                                      Width="90"
-                                      ItemsSource="{Binding Path=SelectedUpdateType, Converter={converters:EnumToCollectionConverter}, Mode=OneTime}"
-                                      SelectedValuePath="Value"
-                                      DisplayMemberPath="Description"
-                                      SelectedValue="{Binding Path=SelectedUpdateType}" Margin="5,0,0,0">
-                            </ComboBox>
-                        </StackPanel>
-                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Border>
