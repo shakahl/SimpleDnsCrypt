@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 
 namespace SimpleDnsCrypt.Helper
 {
@@ -11,9 +12,9 @@ namespace SimpleDnsCrypt.Helper
 	{
 		public static string Description(this Enum eValue)
 		{
-			var nAttributes = eValue.GetType().GetField(eValue.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
-			if (nAttributes.Any())
-				return (nAttributes.First() as DescriptionAttribute).Description;
+			var descriptionAttribute = eValue.GetType().GetField(eValue.ToString())?.GetCustomAttribute<DescriptionAttribute>(false);
+			if (descriptionAttribute != null)
+				return descriptionAttribute.Description;
 
 			var oTi = CultureInfo.CurrentCulture.TextInfo;
 			return oTi.ToTitleCase(oTi.ToLower(eValue.ToString()));

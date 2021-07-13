@@ -86,7 +86,7 @@ namespace SimpleDnsCrypt.ViewModels
 			Instance = this;
 			_windowManager = windowManager;
 			_events = events;
-			_events.Subscribe(this);
+			_events.SubscribeOnPublishedThread(this);
 			_windowWidth = Properties.Settings.Default.WindowWidth;
 			_windowHeight = Properties.Settings.Default.WindowHeight;
 			_windowTitle =

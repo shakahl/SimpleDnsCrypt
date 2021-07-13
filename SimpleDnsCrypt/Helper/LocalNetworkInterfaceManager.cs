@@ -110,7 +110,7 @@ namespace SimpleDnsCrypt.Helper
 						localNetworkInterface,
 						"NameServer", "");
 
-				if (registryKeyIpv6 != null && registryKeyIpv6.ToString().Length > 0)
+				if (registryKeyIpv6 != null && registryKeyIpv6.ToString()?.Length > 0)
 				{
 					var entries = ((string)registryKeyIpv6).Split(new[] { "," }, StringSplitOptions.None);
 					serverAddresses.AddRange(entries.Select(address => new DnsServer
@@ -120,7 +120,7 @@ namespace SimpleDnsCrypt.Helper
 					}));
 				}
 
-				if (registryKeyIpv4 != null && registryKeyIpv4.ToString().Length > 0)
+				if (registryKeyIpv4 != null && registryKeyIpv4.ToString()?.Length > 0)
 				{
 					var entries = ((string)registryKeyIpv4).Split(new[] { "," }, StringSplitOptions.None);
 					serverAddresses.AddRange(entries.Select(address => new DnsServer

@@ -52,12 +52,8 @@ namespace SimpleDnsCrypt
 		{
 			var contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(service) : key;
 			var exports = _container.GetExportedValues<object>(contract);
-
-			if (exports.Any())
-			{
-				return exports.First();
-			}
-			throw new Exception($"Could not locate any instances of contract {contract}.");
+			
+			return exports.FirstOrDefault() ?? throw new Exception($"Could not locate any instances of contract {contract}.");
 		}
 
 		protected override IEnumerable<object> GetAllInstances(Type service)

@@ -48,7 +48,7 @@ namespace SimpleDnsCrypt.ViewModels
 		{
 			_windowManager = windowManager;
 			_events = events;
-			_events.Subscribe(this);
+			_events.SubscribeOnPublishedThread(this);
 			_domainBlacklistRules = new BindableCollection<string>();
 			_domainWhitelistRules = new BindableCollection<string>();
 
@@ -445,13 +445,13 @@ namespace SimpleDnsCrypt.ViewModels
 					}
 				}
 
-				File.WriteAllLines(tmpFile, blacklistLocalRules);
+				await File.WriteAllLinesAsync(tmpFile, blacklistLocalRules);
 				blacklistSource.Add($"file:{tmpFile}");
 
 				var rules = await DomainBlacklist.Build(blacklistSource, new List<string>(_domainWhitelistRules));
 				if (rules != null)
 				{
-					File.WriteAllLines(_domainBlacklistFile, rules);
+					await File.WriteAllLinesAsync(_domainBlacklistFile, rules);
 				}
 
 				if (DnsCryptProxyManager.IsDnsCryptProxyInstalled())

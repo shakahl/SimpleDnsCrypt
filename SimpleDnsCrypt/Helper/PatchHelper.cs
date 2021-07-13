@@ -47,7 +47,7 @@ namespace SimpleDnsCrypt.Helper
 				var sources = DnscryptProxyConfigurationManager.DnscryptProxyConfiguration.sources;
 				if (!sources.ContainsKey("relays"))
 				{
-					sources.Add("relays", new Models.Source
+					sources.Add("relays", new Source
 					{
 						urls = new[] { "https://github.com/DNSCrypt/dnscrypt-resolvers/raw/master/v2/relays.md", "https://download.dnscrypt.info/resolvers-list/v2/relays.md" },
 						cache_file = "relays.md",
@@ -73,7 +73,7 @@ namespace SimpleDnsCrypt.Helper
 				var sources = DnscryptProxyConfigurationManager.DnscryptProxyConfiguration.sources;
 				if (!sources.ContainsKey("relays"))
 				{
-					sources.Add("relays", new Models.Source
+					sources.Add("relays", new Source
 					{
 						urls = new[] { "https://github.com/DNSCrypt/dnscrypt-resolvers/raw/master/v2/relays.md", "https://download.dnscrypt.info/resolvers-list/v2/relays.md" },
 						cache_file = "relays.md",
