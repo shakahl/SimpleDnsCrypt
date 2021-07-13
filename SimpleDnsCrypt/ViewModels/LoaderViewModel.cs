@@ -252,7 +252,7 @@ namespace SimpleDnsCrypt.ViewModels
 
 			_windowManager = windowManager;
 			_events = events;
-			_events.Subscribe(this);
+			_events.SubscribeOnPublishedThread(this);
 			_titleText = $"{Global.ApplicationName} {VersionHelper.PublishVersion} {VersionHelper.PublishBuild}";
 			LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
 			var languages = LocalizationEx.GetSupportedLanguages();
@@ -334,7 +334,7 @@ namespace SimpleDnsCrypt.ViewModels
 					if (valid)
 					{
 						var path = Path.Combine(Path.GetTempPath(), remoteUpdate.Update.Installer.Name);
-						File.WriteAllBytes(path, installer);
+						await File.WriteAllBytesAsync(path, installer);
 						if (File.Exists(path))
 						{
 							installerPath = path;

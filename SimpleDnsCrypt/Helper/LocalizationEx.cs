@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace SimpleDnsCrypt.Helper
 		/// <returns></returns>
 		public static ObservableCollection<Language> GetSupportedLanguages()
 		{
-			var supportedLanguages = new ObservableCollection<Language>
+			var supportedLanguages = new List<Language>
 			{
 				new Language {Name = "Arabic", ShortCode = "ar", CultureCode = "ar-AR"},
 				new Language {Name = "Bulgarian", ShortCode = "bg", CultureCode = "bg-BG"},
@@ -67,8 +68,7 @@ namespace SimpleDnsCrypt.Helper
 				new Language {Name = "Ukrainian", ShortCode = "uk", CultureCode = "uk-UA"},
 				new Language {Name = "Vietnamese", ShortCode = "vi", CultureCode = "vi-VN"},
 			};
-			supportedLanguages.OrderBy(l => l.Name);
-			return supportedLanguages;
+			return new ObservableCollection<Language>(supportedLanguages.OrderBy(l => l.Name));
 		}
 
 		/// <summary>

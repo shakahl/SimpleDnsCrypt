@@ -97,10 +97,7 @@ namespace SimpleDnsCrypt.Helper
 				{
 					var getDataTask = client.GetByteArrayAsync(url);
 					var file = await getDataTask.ConfigureAwait(false);
-					if (file != null)
-					{
-						File.WriteAllBytes(path, file);
-					}
+					await File.WriteAllBytesAsync(path, file);
 				}
 				if (File.Exists(path))
 				{

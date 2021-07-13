@@ -1,7 +1,5 @@
 ﻿using Caliburn.Micro;
-using SimpleDnsCrypt.Models;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 
 namespace SimpleDnsCrypt.ViewModels
@@ -26,7 +24,7 @@ namespace SimpleDnsCrypt.ViewModels
 		{
 			_windowManager = windowManager;
 			_events = events;
-			_events.Subscribe(this);
+			_events.SubscribeOnPublishedThread(this);
 			_addressBlacklist = new BindableCollection<string>();
 			LoadAddressBlacklist();
 		}

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
 
 namespace SimpleDnsCrypt.ViewModels
@@ -26,7 +21,7 @@ namespace SimpleDnsCrypt.ViewModels
 		{
 			_windowManager = windowManager;
 			_events = events;
-			_events.Subscribe(this);
+			_events.SubscribeOnPublishedThread(this);
 		}
 
 		/// <summary>
