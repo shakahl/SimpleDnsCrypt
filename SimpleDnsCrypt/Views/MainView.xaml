@@ -1297,7 +1297,6 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <ListView BorderBrush="#198AB328" Grid.Column="0"
-                                                      IsEnabled="{Binding IsWorking, Converter={StaticResource ReverseBoolToEnabledConverter}}"
                                                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                                                       ScrollViewer.CanContentScroll="True"
                                                       MinHeight="180" MinWidth="680"
@@ -1495,7 +1494,6 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <ListView BorderBrush="#198AB328" Grid.Column="0"
-                                                      IsEnabled="{Binding IsWorking, Converter={StaticResource ReverseBoolToEnabledConverter}}"
                                                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                                                       ScrollViewer.CanContentScroll="True"
                                                       MinHeight="180" MaxHeight="600" MinWidth="680"
@@ -2002,7 +2000,6 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <ListView BorderBrush="#198AB328" Grid.Column="0"
-                                                      IsEnabled="{Binding IsWorking, Converter={StaticResource ReverseBoolToEnabledConverter}}"
                                                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                                                       ScrollViewer.CanContentScroll="True"
                                                       MinHeight="180" MinWidth="680"
@@ -2182,7 +2179,6 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <ListView BorderBrush="#198AB328" Grid.Column="0"
-                                                      IsEnabled="{Binding IsWorking, Converter={StaticResource ReverseBoolToEnabledConverter}}"
                                                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                                                       ScrollViewer.CanContentScroll="True"
                                                       MinHeight="180" MinWidth="680"
