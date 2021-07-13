@@ -19,11 +19,7 @@ namespace SimpleDnsCrypt.ViewModels
 		private bool _isAddressBlacklistTabVisible;
 		private bool _isAddressBlockLogTabVisible;
 		private bool _isCloakAndForwardTabVisible;
-		private bool _isAutoUpdateEnabled;
-		private bool _isAutoUpdateSilentEnabled;
 		private bool _backupAndRestoreConfigOnUpdate;
-
-		private UpdateType _selectedUpdateType;
 
 		public SettingsViewModel()
 		{
@@ -44,9 +40,6 @@ namespace SimpleDnsCrypt.ViewModels
 			_isAddressBlacklistTabVisible = Properties.Settings.Default.IsAddressBlacklistTabVisible;
 			_isAddressBlockLogTabVisible = Properties.Settings.Default.IsAddressBlockLogTabVisible;
 			_isCloakAndForwardTabVisible = Properties.Settings.Default.IsCloakAndForwardTabVisible;
-			_isAutoUpdateEnabled = Properties.Settings.Default.AutoUpdate;
-			_isAutoUpdateSilentEnabled = Properties.Settings.Default.AutoUpdateSilent;
-			_selectedUpdateType = (UpdateType)Properties.Settings.Default.MinUpdateType;
 			_backupAndRestoreConfigOnUpdate = Properties.Settings.Default.BackupAndRestoreConfigOnUpdate;
 		}
 
@@ -60,17 +53,6 @@ namespace SimpleDnsCrypt.ViewModels
 			{
 				_windowTitle = value;
 				NotifyOfPropertyChange(() => WindowTitle);
-			}
-		}
-
-		public UpdateType SelectedUpdateType
-		{
-			get => _selectedUpdateType;
-			set
-			{
-				_selectedUpdateType = value;
-				Properties.Settings.Default.MinUpdateType = (int)_selectedUpdateType;
-				NotifyOfPropertyChange(() => SelectedUpdateType);
 			}
 		}
 
@@ -170,28 +152,6 @@ namespace SimpleDnsCrypt.ViewModels
 				_isAddressBlacklistTabVisible = value;
 				Properties.Settings.Default.IsAddressBlacklistTabVisible = _isAddressBlacklistTabVisible;
 				NotifyOfPropertyChange(() => IsAddressBlacklistTabVisible);
-			}
-		}
-
-		public bool IsAutoUpdateEnabled
-		{
-			get => _isAutoUpdateEnabled;
-			set
-			{
-				_isAutoUpdateEnabled = value;
-				Properties.Settings.Default.AutoUpdate = _isAutoUpdateEnabled;
-				NotifyOfPropertyChange(() => IsAutoUpdateEnabled);
-			}
-		}
-
-		public bool IsAutoUpdateSilentEnabled
-		{
-			get => _isAutoUpdateSilentEnabled;
-			set
-			{
-				_isAutoUpdateSilentEnabled = value;
-				Properties.Settings.Default.AutoUpdateSilent = _isAutoUpdateSilentEnabled;
-				NotifyOfPropertyChange(() => IsAutoUpdateSilentEnabled);
 			}
 		}
 
