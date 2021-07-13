@@ -38,7 +38,7 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconMaterial Height="20"
-                                                Width="20" Kind="Settings" Opacity="0.7"
+                                                Width="20" Kind="AccountSettings" Opacity="0.7"
                                                 Foreground="#FF8ab329"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center" />
