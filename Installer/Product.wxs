@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="SimpleDNSCrypt.insc" Language="1033" Version="0.7.2.0" Manufacturer="instant.sc"
+           UpgradeCode="b561df39-7e27-44e4-978d-22df6eea11b4">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="SimpleDNSCrypt" Level="1" ConfigurableDirectory="INSTALLFOLDER">
+      <ComponentGroupRef Id="SimpleDNSCrypt_Project" />
+      <ComponentRef Id="Registry" />
+    </Feature>
+    <UIRef Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <MajorUpgrade AllowDowngrades="yes" />
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="SimpleDNSCrypt" />
+      </Directory>
+      <Component Id="Registry" Guid="161bb76a-8604-425b-8bd7-eeafb47c8cca">
+        <!--<RegistryKey Root="HKLM" Key="Software\instantsc\SimpleDNSCrypt">
+          <RegistryValue Type="string" Name="InstallDir" Value="[INSTALLFOLDER]" />
+        </RegistryKey>-->
+      </Component>
+    </Directory>
+  </Fragment>
+</Wix>
