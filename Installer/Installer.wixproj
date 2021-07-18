@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform>x64</Platform>
+    <ProductVersion>3.10</ProductVersion>
+    <ProjectGuid>b2c887e0-6f49-4ce9-bf0a-f87873da80b9</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>SimpleDnsCrypt</OutputName>
+    <OutputType>Package</OutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Product.wxs" />
+    <Compile Include="SimpleDnsCrypt.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\wix.targets') " />
+  <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
+    <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
+  </Target>
+  <Target Name="BeforeBuild">
+    <Exec Command="dotnet publish ..\SimpleDnsCrypt\SimpleDnsCrypt.csproj -o ..\publish\exe --self-contained -c $(Configuration) -r win10-x64" />
+    <PropertyGroup>
+      <LinkerBaseInputPaths>..\publish\exe</LinkerBaseInputPaths>
+      <DefineConstants>BasePath=..\publish\exe</DefineConstants>
+    </PropertyGroup>
+    <HeatDirectory OutputFile="SimpleDnsCrypt.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="SimpleDNSCrypt_Project" 
+                   SuppressCom="true" Directory="..\publish\exe" SuppressFragments="true" SuppressRegistry="true" 
+                   SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" 
+                   PreprocessorVariable="var.BasePath" />
+  </Target>
+</Project>
