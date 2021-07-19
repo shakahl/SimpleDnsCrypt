@@ -7,7 +7,8 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:converters="clr-namespace:SimpleDnsCrypt.Converters"
              xmlns:customControls="clr-namespace:SimpleDnsCrypt.Controls"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:models="clr-namespace:SimpleDnsCrypt.Models"
              lex:LocalizeDictionary.DesignCulture="en"
              lex:LocalizeDictionary.OutputMissingKeys="False"
              lex:ResxLocalizationProvider.DefaultAssembly="SimpleDnsCrypt"
@@ -504,7 +505,7 @@
                                                         </ItemsPanelTemplate>
                                                     </ItemsControl.ItemsPanel>
                                                     <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
+                                                        <DataTemplate DataType="{x:Type models:AvailableResolver}">
                                                             <Border BorderThickness="0.2" Background="White"
                                                                     Padding="1">
                                                                 <Grid Cursor="Hand"
