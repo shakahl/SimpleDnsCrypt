@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DnsCrypt.Blacklist;
+using SimpleDnsCrypt.Utils;
 using Application = System.Windows.Application;
 using Screen = Caliburn.Micro.Screen;
 
@@ -279,7 +279,7 @@ namespace SimpleDnsCrypt.ViewModels
 				};
 				var result = openWhitelistFileDialog.ShowDialog();
 				if (result != DialogResult.OK) return;
-				var whitelistLines = await DomainBlacklist.ReadAllLinesAsync(openWhitelistFileDialog.FileName);
+				var whitelistLines = await File.ReadAllLinesAsync(openWhitelistFileDialog.FileName);
 				var parsed = DomainBlacklist.ParseBlacklist(whitelistLines, true);
 				var enumerable = parsed as string[] ?? parsed.ToArray();
 				if (!enumerable.Any()) return;
@@ -343,7 +343,7 @@ namespace SimpleDnsCrypt.ViewModels
 			{
 				if (string.IsNullOrEmpty(_domainWhitelistRuleFilePath)) return;
 				if (!File.Exists(_domainWhitelistRuleFilePath)) return;
-				var whitelist = await DomainBlacklist.ReadAllLinesAsync(_domainWhitelistRuleFilePath);
+				var whitelist = await File.ReadAllLinesAsync(_domainWhitelistRuleFilePath);
 				DomainWhitelistRules.Clear();
 				DomainWhitelistRules = new BindableCollection<string>(whitelist);
 			}
@@ -553,7 +553,7 @@ namespace SimpleDnsCrypt.ViewModels
 				};
 				var result = openBlacklistFileDialog.ShowDialog();
 				if (result != DialogResult.OK) return;
-				var blacklistLines = await DomainBlacklist.ReadAllLinesAsync(openBlacklistFileDialog.FileName);
+				var blacklistLines = await File.ReadAllLinesAsync(openBlacklistFileDialog.FileName);
 				var parsed = DomainBlacklist.ParseBlacklist(blacklistLines, true);
 				var enumerable = parsed as string[] ?? parsed.ToArray();
 				if (!enumerable.Any()) return;
@@ -643,7 +643,7 @@ namespace SimpleDnsCrypt.ViewModels
 			{
 				if (string.IsNullOrEmpty(_domainBlacklistRuleFilePath)) return;
 				if (!File.Exists(_domainBlacklistRuleFilePath)) return;
-				var blacklist = await DomainBlacklist.ReadAllLinesAsync(_domainBlacklistRuleFilePath);
+				var blacklist = await File.ReadAllLinesAsync(_domainBlacklistRuleFilePath);
 				DomainBlacklistRules.Clear();
 				DomainBlacklistRules = new BindableCollection<string>(blacklist);
 			}

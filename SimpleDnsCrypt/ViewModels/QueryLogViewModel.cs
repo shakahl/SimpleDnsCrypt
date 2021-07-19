@@ -7,12 +7,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Caliburn.Micro;
-using DnsCrypt.Blacklist;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using SimpleDnsCrypt.Config;
 using SimpleDnsCrypt.Helper;
 using SimpleDnsCrypt.Models;
+using SimpleDnsCrypt.Utils;
 using Application = System.Windows.Application;
 using Screen = Caliburn.Micro.Screen;
 

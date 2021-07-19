@@ -1,5 +1,4 @@
 ﻿using Caliburn.Micro;
-using DnsCrypt.Blacklist;
 using MahApps.Metro.Controls;
 using MahApps.Metro.SimpleChildWindow;
 using SimpleDnsCrypt.Config;
@@ -94,7 +93,7 @@ namespace SimpleDnsCrypt.ViewModels
 				if (string.IsNullOrEmpty(file)) return;
 
 				if (!File.Exists(file)) return;
-				var lines = await DomainBlacklist.ReadAllLinesAsync(file);
+				var lines = await File.ReadAllLinesAsync(file);
 				if (lines.Length > 0)
 				{
 					var tmpRules = new List<Rule>();
@@ -397,7 +396,7 @@ namespace SimpleDnsCrypt.ViewModels
 				if (string.IsNullOrEmpty(file)) return;
 
 				if (!File.Exists(file)) return;
-				var lines = await DomainBlacklist.ReadAllLinesAsync(file);
+				var lines = await File.ReadAllLinesAsync(file);
 				if (lines.Length > 0)
 				{
 					var tmpRules = new List<Rule>();

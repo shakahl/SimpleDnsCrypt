@@ -10,9 +10,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using DnsCrypt.Blacklist;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using SimpleDnsCrypt.Utils;
 
 namespace SimpleDnsCrypt.ViewModels
 {
