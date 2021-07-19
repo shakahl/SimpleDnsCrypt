@@ -2,6 +2,6 @@
 using System.Windows;
 [assembly: ComVisible(false)]
 [assembly: ThemeInfo(
-	ResourceDictionaryLocation.None,
-	ResourceDictionaryLocation.SourceAssembly
+    ResourceDictionaryLocation.None,
+    ResourceDictionaryLocation.SourceAssembly
 )]
