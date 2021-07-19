@@ -1,9 +1,10 @@
 ﻿using Caliburn.Micro;
-using DnsCrypt.Models;
 using SimpleDnsCrypt.Config;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using SimpleDnsCrypt.Utils;
+using SimpleDnsCrypt.Utils.Models;
 
 namespace SimpleDnsCrypt.Helper
 {
@@ -19,7 +20,7 @@ namespace SimpleDnsCrypt.Helper
 			{
 				if (File.Exists(relayFile))
 				{
-					relays = DnsCrypt.Stamps.StampTools.ReadStampFileEntries(relayFile);
+					relays = StampTools.ReadStampFileEntries(relayFile);
 				}
 			}
 			catch (Exception exception)

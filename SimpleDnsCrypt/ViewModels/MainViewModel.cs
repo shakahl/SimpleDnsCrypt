@@ -1,5 +1,4 @@
 using Caliburn.Micro;
-using DnsCrypt.Models;
 using SimpleDnsCrypt.Config;
 using SimpleDnsCrypt.Extensions;
 using SimpleDnsCrypt.Helper;
@@ -18,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using SimpleDnsCrypt.Utils.Models;
 using TabControl = System.Windows.Controls.TabControl;
 
 namespace SimpleDnsCrypt.ViewModels
