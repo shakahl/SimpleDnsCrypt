@@ -1,10 +1,10 @@
 ﻿using Caliburn.Micro;
-using DnsCrypt.Models;
 using GongSolutions.Wpf.DragDrop;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
+using SimpleDnsCrypt.Utils.Models;
 
 namespace SimpleDnsCrypt.ViewModels
 {

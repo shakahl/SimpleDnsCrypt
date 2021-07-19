@@ -1,10 +1,10 @@
 ﻿using Caliburn.Micro;
-using DnsCrypt.Models;
 using Nett;
 using SimpleDnsCrypt.Config;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using SimpleDnsCrypt.Utils.Models;
 
 // ReSharper disable InconsistentNaming
 
