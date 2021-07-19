@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Uninstall", "Uninstall\Unin
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{B2C887E0-6F49-4CE9-BF0A-F87873DA80B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{209C4925-B294-4129-9A4B-C2798E2E3B40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleDnsCrypt.Utils", "SimpleDnsCrypt.Utils\SimpleDnsCrypt.Utils.csproj", "{A0B2D0DB-BF16-4C71-9069-48F911A131D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{1A9CA4FE-BDD5-4D7C-A86A-7ED503974718}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B2C887E0-6F49-4CE9-BF0A-F87873DA80B9}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{B2C887E0-6F49-4CE9-BF0A-F87873DA80B9}.Release|Any CPU.ActiveCfg = Release|x64
+		{209C4925-B294-4129-9A4B-C2798E2E3B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{209C4925-B294-4129-9A4B-C2798E2E3B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{209C4925-B294-4129-9A4B-C2798E2E3B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{209C4925-B294-4129-9A4B-C2798E2E3B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0B2D0DB-BF16-4C71-9069-48F911A131D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0B2D0DB-BF16-4C71-9069-48F911A131D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0B2D0DB-BF16-4C71-9069-48F911A131D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0B2D0DB-BF16-4C71-9069-48F911A131D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,39 @@ namespace SimpleDnsCrypt.Utils
 {
 	public static class StampTools
 	{
+		public static string Encode(Stamp stamp)
+		{
+			var builder = new StringBuilder("sdns://", 100);
+			switch (stamp.Protocol)
+			{
+				case StampProtocol.DnsCrypt:
+					var addressLength = Encoding.Default.GetByteCount(stamp.Address);
+					var publicKeyLength = 32;
+					var providerNameLength = Encoding.Default.GetByteCount(stamp.ProviderName);
+					var bytes = new byte[1 + 8 +
+					                     1 + addressLength +
+					                     1 + publicKeyLength +
+					                     1 + providerNameLength];
+					bytes[0] = 1;
+					var properties = (byte) (Convert.ToByte(stamp.Properties.DnsSec) |
+					                         (Convert.ToByte(stamp.Properties.NoLog) << 1) |
+					                         (Convert.ToByte(stamp.Properties.NoFilter) << 2));
+					bytes[1] = properties;
+					bytes[9] = (byte) addressLength;
+					Encoding.Default.GetBytes(stamp.Address, bytes.AsSpan(10, addressLength));
+					bytes[10 + addressLength] = (byte) publicKeyLength;
+					Convert.FromHexString(stamp.PublicKey).CopyTo(bytes.AsSpan(10 + addressLength + 1, publicKeyLength));
+					bytes[10 + addressLength + 1 + publicKeyLength] = (byte) providerNameLength;
+					Encoding.Default.GetBytes(stamp.ProviderName, bytes.AsSpan(10 + addressLength + 1 + publicKeyLength + 1, providerNameLength));
+					builder.Append(Base64Url.Encode(bytes));
+					break;
+				default:
+					throw new NotImplementedException();
+			}
+
+			return builder.ToString();
+		}
+
 		/// <summary>
 		/// Decode an encoded Stamp. 
 		/// </summary>
@@ -90,6 +123,7 @@ namespace SimpleDnsCrypt.Utils
 							//eg: google
 							stampObject.Port = 53;
 						}
+
 						var publicKeyLength = stampBinary[dnsCryptCounter++];
 						stampObject.PublicKey = Convert.ToHexString(stampBinary.AsSpan(dnsCryptCounter, publicKeyLength));
 						dnsCryptCounter += publicKeyLength;
@@ -132,6 +166,7 @@ namespace SimpleDnsCrypt.Utils
 							//eg: google
 							stampObject.Port = 53;
 						}
+
 						var hashLength = stampBinary[dohCounter++];
 						stampObject.Hash = Convert.ToHexString(stampBinary.AsSpan(dohCounter, hashLength));
 						dohCounter += hashLength;
@@ -147,6 +182,7 @@ namespace SimpleDnsCrypt.Utils
 							//Stamp is too short
 							return null;
 						}
+
 						var relayCounter = 1;
 						var relayAddressLength = stampBinary[relayCounter++];
 						stampObject.Address = Encoding.UTF8.GetString(stampBinary.AsSpan(relayCounter, relayAddressLength));
@@ -169,12 +205,14 @@ namespace SimpleDnsCrypt.Utils
 						{
 							return null;
 						}
+
 						break;
 					case StampProtocol.TLS:
 						break;
 					case StampProtocol.Unknown:
 						break;
 				}
+
 				return stampObject;
 			}
 			catch (Exception)
@@ -203,6 +241,7 @@ namespace SimpleDnsCrypt.Utils
 					{
 						stampFileEntry.Name = def[i].Trim();
 					}
+
 					if (def[i].StartsWith("sdns://"))
 					{
 						stamp = Decode(def[i].Trim());
@@ -222,6 +261,7 @@ namespace SimpleDnsCrypt.Utils
 					stampList.Add(stampFileEntry);
 				}
 			}
+
 			return stampList;
 		}
 	}
