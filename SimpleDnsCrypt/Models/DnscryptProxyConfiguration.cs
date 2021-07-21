@@ -60,13 +60,23 @@ namespace SimpleDnsCrypt.Models
         private string _proxy;
         private ObservableCollection<string> _disabled_server_names;
         private string _blocked_query_response;
-
+        private Dictionary<string, CustomServer> _customServers;
 
         [TomlIgnore]
         public new bool IsNotifying
         {
             get => base.IsNotifying;
             set => base.IsNotifying = value;
+        }
+
+        public Dictionary<string, CustomServer> @static
+        {
+            get => _customServers ??= new Dictionary<string, CustomServer>();
+            set
+            {
+                _customServers = value;
+                NotifyOfPropertyChange(() => @static);
+            }
         }
 
         /// <summary>
@@ -1034,6 +1044,11 @@ namespace SimpleDnsCrypt.Models
                 NotifyOfPropertyChange(() => log_format);
             }
         }
+    }
+
+    public class CustomServer
+    {
+        public string Stamp { get; set; }
     }
 
     public class Source : PropertyChangedBase

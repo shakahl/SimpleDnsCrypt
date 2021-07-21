@@ -357,224 +357,239 @@
                 <TabItem Padding="10,2,10,2" Height="39" VerticalAlignment="Top" Tag="resolverTab"
                              Header="{lex:Loc Key=tabitem_resolvers}">
                     <TabItem.Content>
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <DockPanel Margin="0,10,0,0">
-                                <Border BorderThickness="1" Background="#198AB328" Padding="10" Margin="0,14,0,0"
-                                        DockPanel.Dock="Top"
-                                        IsEnabled="{Binding IsSavingConfiguration, Converter={StaticResource ReverseBoolToEnabledConverter}}">
-                                    <Border.BorderBrush>
-                                        <DrawingBrush Viewport="0,0,8,8" ViewportUnits="Absolute" TileMode="Tile"
-                                                      Opacity="0.4">
-                                            <DrawingBrush.Drawing>
-                                                <DrawingGroup>
-                                                    <GeometryDrawing Brush="#FF8ab329">
-                                                        <GeometryDrawing.Geometry>
-                                                            <GeometryGroup>
-                                                                <RectangleGeometry Rect="0,0,50,50" />
-                                                                <RectangleGeometry Rect="50,50,50,50" />
-                                                            </GeometryGroup>
-                                                        </GeometryDrawing.Geometry>
-                                                    </GeometryDrawing>
-                                                </DrawingGroup>
-                                            </DrawingBrush.Drawing>
-                                        </DrawingBrush>
-                                    </Border.BorderBrush>
-                                    <StackPanel Orientation="Vertical">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <iconPacks:PackIconMaterial Grid.Column="0" Grid.Row="0" Height="20"
-                                                                        Width="20" Kind="AutoFix" Opacity="0.7"
-                                                                        Foreground="#FF8ab329"
-                                                                        HorizontalAlignment="Left"
-                                                                        VerticalAlignment="Center" />
-                                            <TextBlock Grid.Column="1" Grid.Row="0"
-                                                       Text="{lex:Loc Key=resolvers_dnscrypt_mode_header}"
+                        <DockPanel Margin="0,10,0,0">
+                            <Border BorderThickness="1" Background="#198AB328" Padding="10" Margin="0,14,0,0"
+                                    DockPanel.Dock="Top"
+                                    IsEnabled="{Binding IsSavingConfiguration, Converter={StaticResource ReverseBoolToEnabledConverter}}">
+                                <Border.BorderBrush>
+                                    <DrawingBrush Viewport="0,0,8,8" ViewportUnits="Absolute" TileMode="Tile"
+                                                  Opacity="0.4">
+                                        <DrawingBrush.Drawing>
+                                            <DrawingGroup>
+                                                <GeometryDrawing Brush="#FF8ab329">
+                                                    <GeometryDrawing.Geometry>
+                                                        <GeometryGroup>
+                                                            <RectangleGeometry Rect="0,0,50,50" />
+                                                            <RectangleGeometry Rect="50,50,50,50" />
+                                                        </GeometryGroup>
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Border.BorderBrush>
+                                <StackPanel Orientation="Vertical">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <iconPacks:PackIconMaterial Grid.Column="0" Grid.Row="0" Height="20"
+                                                                    Width="20" Kind="AutoFix" Opacity="0.7"
+                                                                    Foreground="#FF8ab329"
+                                                                    HorizontalAlignment="Left"
+                                                                    VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1" Grid.Row="0"
+                                                   Text="{lex:Loc Key=resolvers_dnscrypt_mode_header}"
+                                                   TextWrapping="Wrap" VerticalAlignment="Center"
+                                                   Foreground="#FF8ab329" FontSize="20"
+                                                   Opacity="0.7" Margin="5,0,0,3" FontWeight="Bold" />
+                                    </Grid>
+                                    <TextBlock Foreground="#FF575757" Margin="0,5,0,0"
+                                               Text="{lex:Loc Key=resolvers_dnscrypt_mode_description}" />
+                                    <controls:ToggleSwitch Foreground="#FF575757" Cursor="Hand"
+                                                           IsOn="{Binding IsDnsCryptAutomaticModeEnabled}"
+                                                           OnContent="{lex:Loc Key=enabled}"
+                                                           OffContent="{lex:Loc Key=disabled}"
+                                                           Header="{lex:Loc Key=resolvers_dnscrypt_automatic_mode}"
+                                                           Margin="0,5,0,0" />
+                                </StackPanel>
+                            </Border>
+                            <Border BorderThickness="1" Background="#198AB328" Padding="10" Margin="0,14,0,0"
+                                    DockPanel.Dock="Bottom"
+                                    IsEnabled="{Binding IsSavingConfiguration, Converter={StaticResource ReverseBoolToEnabledConverter}}">
+                                <Border.BorderBrush>
+                                    <DrawingBrush Viewport="0,0,8,8" ViewportUnits="Absolute" TileMode="Tile"
+                                                  Opacity="0.4">
+                                        <DrawingBrush.Drawing>
+                                            <DrawingGroup>
+                                                <GeometryDrawing Brush="#FF8ab329">
+                                                    <GeometryDrawing.Geometry>
+                                                        <GeometryGroup>
+                                                            <RectangleGeometry Rect="0,0,50,50" />
+                                                            <RectangleGeometry Rect="50,50,50,50" />
+                                                        </GeometryGroup>
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Border.BorderBrush>
+                                <StackPanel Orientation="Vertical">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <iconPacks:PackIconMaterial Grid.Column="0" Grid.Row="0" Height="20"
+                                                                    Width="20" Kind="Dns" Opacity="0.7"
+                                                                    Foreground="#FF8ab329"
+                                                                    HorizontalAlignment="Left"
+                                                                    VerticalAlignment="Center" />
+                                        <DockPanel Grid.Column="1" Grid.Row="0"
+                                                   Margin="5,0,0,3">
+                                            <TextBlock DockPanel.Dock="Left"
+                                                       Text="{lex:Loc Key=resolvers_available_resolvers_header}"
                                                        TextWrapping="Wrap" VerticalAlignment="Center"
                                                        Foreground="#FF8ab329" FontSize="20"
-                                                       Opacity="0.7" Margin="5,0,0,3" FontWeight="Bold">
-                                            </TextBlock>
-                                        </Grid>
-                                        <TextBlock Foreground="#FF575757" Margin="0,5,0,0"
-                                                   Text="{lex:Loc Key=resolvers_dnscrypt_mode_description}" />
-                                        <controls:ToggleSwitch Foreground="#FF575757" Cursor="Hand"
-                                                               IsOn="{Binding IsDnsCryptAutomaticModeEnabled}"
-                                                               OnContent="{lex:Loc Key=enabled}"
-                                                               OffContent="{lex:Loc Key=disabled}"
-                                                               Header="{lex:Loc Key=resolvers_dnscrypt_automatic_mode}"
-                                                               Margin="0,5,0,0" />
-                                    </StackPanel>
-                                </Border>
-                                <Border BorderThickness="1" Background="#198AB328" Padding="10" Margin="0,14,0,0"
-                                        DockPanel.Dock="Bottom"
-                                        IsEnabled="{Binding IsSavingConfiguration, Converter={StaticResource ReverseBoolToEnabledConverter}}">
-                                    <Border.BorderBrush>
-                                        <DrawingBrush Viewport="0,0,8,8" ViewportUnits="Absolute" TileMode="Tile"
-                                                      Opacity="0.4">
-                                            <DrawingBrush.Drawing>
-                                                <DrawingGroup>
-                                                    <GeometryDrawing Brush="#FF8ab329">
-                                                        <GeometryDrawing.Geometry>
-                                                            <GeometryGroup>
-                                                                <RectangleGeometry Rect="0,0,50,50" />
-                                                                <RectangleGeometry Rect="50,50,50,50" />
-                                                            </GeometryGroup>
-                                                        </GeometryDrawing.Geometry>
-                                                    </GeometryDrawing>
-                                                </DrawingGroup>
-                                            </DrawingBrush.Drawing>
-                                        </DrawingBrush>
-                                    </Border.BorderBrush>
-                                    <StackPanel Orientation="Vertical">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <iconPacks:PackIconMaterial Grid.Column="0" Grid.Row="0" Height="20"
-                                                                        Width="20" Kind="Dns" Opacity="0.7"
-                                                                        Foreground="#FF8ab329"
-                                                                        HorizontalAlignment="Left"
-                                                                        VerticalAlignment="Center" />
-                                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0"
-                                                        Margin="5,0,0,3">
-                                                <TextBlock Text="{lex:Loc Key=resolvers_available_resolvers_header}"
-                                                           TextWrapping="Wrap" VerticalAlignment="Center"
-                                                           Foreground="#FF8ab329" FontSize="20"
-                                                           Opacity="0.7" FontWeight="Bold">
-                                                </TextBlock>
-                                                <TextBlock Text="{Binding Resolvers.Count, StringFormat={}({0})}"
-                                                           TextWrapping="Wrap" VerticalAlignment="Center"
-                                                           Foreground="#FF8ab329" FontSize="20"
-                                                           Opacity="0.7" FontWeight="Bold" Margin="5,0,0,0">
-                                                </TextBlock>
-                                            </StackPanel>
-                                            <Button x:Name="SaveLocalServers" Grid.Column="2" Grid.Row="0"
+                                                       Opacity="0.7" FontWeight="Bold" />
+                                            <TextBlock DockPanel.Dock="Left"
+                                                       Text="{Binding Resolvers.Count, StringFormat={}({0})}"
+                                                       TextWrapping="Wrap" VerticalAlignment="Center"
+                                                       Foreground="#FF8ab329" FontSize="20"
+                                                       Opacity="0.7" FontWeight="Bold" Margin="5,0,0,0" />
+                                            <Button DockPanel.Dock="Right"
+                                                    x:Name="SaveLocalServers"
                                                     Cursor="Hand"
                                                     IsEnabled="{Binding Resolvers.Count, Converter={StaticResource IntegerToBoolConverter}}"
                                                     Content="{lex:Loc Key=default_settings_apply_settings}"
                                                     Width="Auto" HorizontalAlignment="Right"
                                                     Style="{DynamicResource CustomAccentedSquareButtonStyle}" />
-                                        </Grid>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock VerticalAlignment="Center"
-                                                       Text="{lex:Loc Key=default_settings_configuration_dnssec}"
-                                                       Foreground="#FF575757" Margin="5,5,0,2" />
-                                            <TextBlock VerticalAlignment="Center"
-                                                       Text="{Binding DnscryptProxyConfiguration.require_dnssec, Converter={StaticResource BoolToTextConverter}}"
-                                                       FontWeight="Bold"
-                                                       Foreground="{Binding DnscryptProxyConfiguration.require_dnssec,Converter={StaticResource BoolToForegroundConverter}}"
-                                                       Margin="5,5,0,2" />
-                                            <TextBlock VerticalAlignment="Center" Foreground="#FF575757"
-                                                       Margin="5,5,0,2">
-                                                |
-                                            </TextBlock>
-                                            <TextBlock VerticalAlignment="Center"
-                                                       Text="{lex:Loc Key=default_settings_configuration_nolog}"
-                                                       Foreground="#FF575757" Margin="5,5,0,2" />
-                                            <TextBlock VerticalAlignment="Center" FontWeight="Bold"
-                                                       Margin="5,5,0,2"
-                                                       Text="{Binding DnscryptProxyConfiguration.require_nolog, Converter={StaticResource BoolToTextConverter}}"
-                                                       Foreground="{Binding DnscryptProxyConfiguration.require_nolog,Converter={StaticResource BoolToForegroundConverter}}" />
-                                            <TextBlock VerticalAlignment="Center" Foreground="#FF575757"
-                                                       Margin="5,5,0,2">
-                                                |
-                                            </TextBlock>
-                                            <TextBlock VerticalAlignment="Center"
-                                                       Text="{lex:Loc Key=default_settings_configuration_nofilter}"
-                                                       Foreground="#FF575757" Margin="5,5,0,2" />
-                                            <TextBlock VerticalAlignment="Center" FontWeight="Bold"
-                                                       Text="{Binding DnscryptProxyConfiguration.require_nofilter, Converter={StaticResource BoolToTextConverter}}"
-                                                       Foreground="{Binding DnscryptProxyConfiguration.require_nofilter,Converter={StaticResource BoolToForegroundConverter}}"
-                                                       Margin="5,5,0,2" />
-                                        </StackPanel>
-                                        <Grid>
-                                            <Grid.RowDefinitions >
-                                                <RowDefinition Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=ActualHeight, Converter={StaticResource HeightConverter}, ConverterParameter='Resolvers'}"/>
-                                            </Grid.RowDefinitions>
-                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,5,0,0">
-                                                <ItemsControl ItemsSource="{Binding Resolvers}" IsEnabled="True"
-                                                              Margin="0">
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <UniformGrid Columns="3" />
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate DataType="{x:Type models:AvailableResolver}">
-                                                            <Border BorderThickness="0.2" Background="White"
-                                                                    Padding="1">
-                                                                <Grid Cursor="Hand"
-                                                                      cal:Message.Attach="[Event MouseLeftButtonDown] = [Action ResolverClicked($dataContext)]"
-                                                                      Background="{Binding IsInServerList, Converter={StaticResource ServerListBackgroundConverter}}"
-                                                                      ToolTip="{Binding ToolTip}">
-                                                                    <Grid.RowDefinitions>
-                                                                        <RowDefinition />
-                                                                        <RowDefinition />
-                                                                    </Grid.RowDefinitions>
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="30"/>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                    </Grid.ColumnDefinitions>
-                                                                    <TextBlock  Foreground="White"
-                                                                               Margin="5,2" Grid.Row="0" Grid.Column="1"
-                                                                               Text="{Binding DisplayName}" HorizontalAlignment="Right" />
-                                                                    <Button Grid.Row="0" Grid.Column="0"
-                                                                            Visibility="{Binding Protocol, Converter={StaticResource ProtocolToVisibilityConverter}}"
-                                                                            Background="White"
-                                                                            Width="20"
-                                                                            Height="20"
-                                                                            Cursor="Hand"
-                                                                            HorizontalContentAlignment="Center"
-                                                                            VerticalContentAlignment="Center"
-                                                                            BorderBrush="{Binding RouteState, Converter={StaticResource RouteStateToColorConverter}}"
-                                                                            FocusVisualStyle="{DynamicResource MahApps.Metro.Styles.MetroCircleFocusVisual}"
-                                                                            Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
-                                                                            Margin="5,2,0,2" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                                        <iconPacks:PackIconMaterial
-                                                                            Kind="Shuffle"
-                                                                            Width="10"
-                                                                            Height="10"
-                                                                            HorizontalContentAlignment="Center"
-                                                                            VerticalContentAlignment="Center" >
-                                                                            <iconPacks:PackIconMaterial.Foreground>
-                                                                                <SolidColorBrush Color="{Binding RouteState, Converter={StaticResource RouteStateToColorConverter}}"/>
-                                                                            </iconPacks:PackIconMaterial.Foreground>
-                                                                        </iconPacks:PackIconMaterial>
-                                                                        <Button.ToolTip>
-                                                                            <Label Content="{Binding RouteStateText}" FontWeight="DemiBold" />
-                                                                        </Button.ToolTip>
-                                                                        <i:Interaction.Triggers>
-                                                                            <i:EventTrigger EventName="Click">
-                                                                                <cal:ActionMessage MethodName="HandleManageRoutes">
-                                                                                    <cal:Parameter Value="{Binding}" />
-                                                                                </cal:ActionMessage>
-                                                                            </i:EventTrigger>
-                                                                        </i:Interaction.Triggers>
-                                                                    </Button>
-                                                                    <TextBlock Foreground="White" Margin="5,2"
-                                                                               Grid.ColumnSpan="2"
-                                                                               Grid.Row="1" FontSize="10"
-                                                                               Text="{Binding Description}"
-                                                                               TextTrimming="WordEllipsis" />
-                                                                </Grid>
-                                                            </Border>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </ScrollViewer>
-                                            <TextBlock Foreground="#FF575757" Text="No resolvers have been loaded yet"
-                                                       Visibility="{Binding Resolvers.Count, Converter={StaticResource IntegerToVisibilityConverter}}"
-                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Grid>
+                                            <Button DockPanel.Dock="Right"
+                                                    x:Name="AddCustomResolverFromStamp"
+                                                    Cursor="Hand"
+                                                    Content="Add custom resolver"
+                                                    Width="Auto" HorizontalAlignment="Right"
+                                                    Style="{DynamicResource CustomAccentedSquareButtonStyle}"
+                                                    Margin="0,0,5,0" />
+                                        </DockPanel>
+                                    </Grid>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Text="{lex:Loc Key=default_settings_configuration_dnssec}"
+                                                   Foreground="#FF575757" Margin="5,5,0,2" />
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Text="{Binding DnscryptProxyConfiguration.require_dnssec, Converter={StaticResource BoolToTextConverter}}"
+                                                   FontWeight="Bold"
+                                                   Foreground="{Binding DnscryptProxyConfiguration.require_dnssec,Converter={StaticResource BoolToForegroundConverter}}"
+                                                   Margin="5,5,0,2" />
+                                        <TextBlock VerticalAlignment="Center" Foreground="#FF575757"
+                                                   Margin="5,5,0,2">
+                                            |
+                                        </TextBlock>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Text="{lex:Loc Key=default_settings_configuration_nolog}"
+                                                   Foreground="#FF575757" Margin="5,5,0,2" />
+                                        <TextBlock VerticalAlignment="Center" FontWeight="Bold"
+                                                   Margin="5,5,0,2"
+                                                   Text="{Binding DnscryptProxyConfiguration.require_nolog, Converter={StaticResource BoolToTextConverter}}"
+                                                   Foreground="{Binding DnscryptProxyConfiguration.require_nolog,Converter={StaticResource BoolToForegroundConverter}}" />
+                                        <TextBlock VerticalAlignment="Center" Foreground="#FF575757"
+                                                   Margin="5,5,0,2">
+                                            |
+                                        </TextBlock>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Text="{lex:Loc Key=default_settings_configuration_nofilter}"
+                                                   Foreground="#FF575757" Margin="5,5,0,2" />
+                                        <TextBlock VerticalAlignment="Center" FontWeight="Bold"
+                                                   Text="{Binding DnscryptProxyConfiguration.require_nofilter, Converter={StaticResource BoolToTextConverter}}"
+                                                   Foreground="{Binding DnscryptProxyConfiguration.require_nofilter,Converter={StaticResource BoolToForegroundConverter}}"
+                                                   Margin="5,5,0,2" />
                                     </StackPanel>
-                                </Border>
-                            </DockPanel>
-                        </ScrollViewer>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition
+                                                Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=ActualHeight, Converter={StaticResource HeightConverter}, ConverterParameter='Resolvers'}" />
+                                        </Grid.RowDefinitions>
+                                        <DataGrid ItemsSource="{Binding Resolvers}" IsEnabled="True"
+                                                  Margin="0" AutoGenerateColumns="False" CanUserAddRows="False"
+                                                  CanUserDeleteRows="False"
+                                                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                                                  VirtualizingStackPanel.IsVirtualizing="True">
+                                            <DataGrid.Columns>
+                                                <DataGridCheckBoxColumn Header="Enabled"
+                                                                        Binding="{Binding IsInServerList}" />
+                                                <DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate DataType="{x:Type models:AvailableResolver}">
+                                                            <Button
+                                                                Visibility="{Binding Protocol, Converter={StaticResource ProtocolToVisibilityConverter}}"
+                                                                Background="White"
+                                                                Width="20"
+                                                                Height="20"
+                                                                Cursor="Hand"
+                                                                HorizontalContentAlignment="Center"
+                                                                VerticalContentAlignment="Center"
+                                                                BorderBrush="{Binding RouteState, Converter={StaticResource RouteStateToColorConverter}}"
+                                                                FocusVisualStyle="{DynamicResource MahApps.Metro.Styles.MetroCircleFocusVisual}"
+                                                                Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                                                                Margin="5,2,0,2" HorizontalAlignment="Left"
+                                                                VerticalAlignment="Top">
+                                                                <iconPacks:PackIconMaterial
+                                                                    Kind="Shuffle"
+                                                                    Width="10"
+                                                                    Height="10"
+                                                                    HorizontalContentAlignment="Center"
+                                                                    VerticalContentAlignment="Center">
+                                                                    <iconPacks:PackIconMaterial.Foreground>
+                                                                        <SolidColorBrush
+                                                                            Color="{Binding RouteState, Converter={StaticResource RouteStateToColorConverter}}" />
+                                                                    </iconPacks:PackIconMaterial.Foreground>
+                                                                </iconPacks:PackIconMaterial>
+                                                                <Button.ToolTip>
+                                                                    <Label Content="{Binding RouteStateText}"
+                                                                           FontWeight="DemiBold" />
+                                                                </Button.ToolTip>
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="Click">
+                                                                        <cal:ActionMessage
+                                                                            MethodName="HandleManageRoutes">
+                                                                            <cal:Parameter Value="{Binding}" />
+                                                                        </cal:ActionMessage>
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTextColumn IsReadOnly="True" Header="Name"
+                                                                    Binding="{Binding Name}" />
+                                                <DataGridTextColumn IsReadOnly="True" Header="Protocol"
+                                                                    Binding="{Binding Protocol}" />
+                                                <DataGridCheckBoxColumn Header="DnsSec" 
+                                                                        IsReadOnly="True" 
+                                                                        Binding="{Binding DnsSec}"/>
+                                                <DataGridCheckBoxColumn Header="NoLog" 
+                                                                        IsReadOnly="True" 
+                                                                        Binding="{Binding NoLog}"/>
+                                                <DataGridCheckBoxColumn Header="NoFilter" 
+                                                                        IsReadOnly="True" 
+                                                                        Binding="{Binding NoFilter}"/>
+                                            </DataGrid.Columns>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type models:AvailableResolver}">
+                                                    <Border BorderThickness="0.2" Background="White"
+                                                            Padding="1" Margin="0,5,0,0">
+                                                        <StackPanel Orientation="Horizontal" Cursor="Hand"
+                                                                    Background="{Binding IsInServerList, Converter={StaticResource ServerListBackgroundConverter}}"
+                                                                    ToolTip="{Binding ToolTip}">
+                                                            <!--<TextBlock Foreground="White" Margin="5,2"
+                                                                               FontSize="10"
+                                                                               Text="{Binding Description}"
+                                                                               TextTrimming="WordEllipsis" />-->
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </DataGrid>
+                                        <TextBlock Foreground="#FF575757" Text="No resolvers have been loaded yet"
+                                                   Visibility="{Binding Resolvers.Count, Converter={StaticResource IntegerToVisibilityConverter}}"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </DockPanel>
                     </TabItem.Content>
                 </TabItem>
                 <TabItem Padding="10,2,10,2" Height="39" VerticalAlignment="Top" Tag="advancedSettingsTab"

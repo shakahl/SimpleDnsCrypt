@@ -55,8 +55,11 @@
     <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="2.0.0" />
     <PackageReference Include="Nett" Version="0.15.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Nito.AsyncEx" Version="5.1.0" />
     <PackageReference Include="NLog" Version="4.7.10" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
+    <PackageReference Include="ReactiveProperty" Version="7.11.0" />
+    <PackageReference Include="ReactiveUI.WPF" Version="14.1.1" />
     <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="5.0.0" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.8.0" />

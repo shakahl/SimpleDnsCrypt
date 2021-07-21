@@ -11,5 +11,29 @@
         public string Hostname { get; set; }
         public string Path { get; set; }
         public int Port { get; set; }
+        public bool IsValid
+        {
+            get
+            {
+                if (Protocol == StampProtocol.DnsCrypt)
+                {
+                    return !string.IsNullOrEmpty(Address) &&
+                           !string.IsNullOrEmpty(PublicKey);
+                }
+
+                if (Protocol == StampProtocol.DoH)
+                {
+                    return !string.IsNullOrEmpty(Hash) &&
+                           !string.IsNullOrEmpty(Hostname);
+                }
+
+                if (Protocol == StampProtocol.DNSCryptRelay)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
     }
 }
