@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SimpleDnsCrypt.Helper
 {
@@ -96,6 +97,90 @@ namespace SimpleDnsCrypt.Helper
                 processResult.StandardError = exception.Message;
                 processResult.Success = false;
             }
+
+            return processResult;
+        }
+
+        /// <summary>
+        ///		Execute process with arguments
+        /// </summary>
+        public static async Task<ProcessResult> ExecuteWithArgumentsAsync(string filename, string arguments)
+        {
+            var processResult = new ProcessResult();
+            try
+            {
+                using var timeoutCancellation = new CancellationTokenSource(TimeSpan.FromSeconds(9));
+                using var process = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = filename,
+                        Arguments = arguments,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    }
+                };
+
+                var output = new StringBuilder();
+                var error = new StringBuilder();
+
+                using (var outputWaitHandle = new SemaphoreSlim(0))
+                using (var errorWaitHandle = new SemaphoreSlim(0))
+                {
+                    process.OutputDataReceived += (sender, e) =>
+                    {
+                        if (e.Data == null)
+                        {
+                            outputWaitHandle.Release();
+                        }
+                        else
+                        {
+                            output.AppendLine(e.Data);
+                        }
+                    };
+                    process.ErrorDataReceived += (sender, e) =>
+                    {
+                        if (e.Data == null)
+                        {
+                            errorWaitHandle.Release();
+                        }
+                        else
+                        {
+                            error.AppendLine(e.Data);
+                        }
+                    };
+                    process.Start();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+                    await Task.WhenAll(process.WaitForExitAsync(timeoutCancellation.Token),
+                                       outputWaitHandle.WaitAsync(timeoutCancellation.Token),
+                                       errorWaitHandle.WaitAsync(timeoutCancellation.Token))
+                              .ConfigureAwait(false);
+
+
+                    processResult.StandardOutput = output.ToString();
+                    processResult.StandardError = error.ToString();
+                    if (process.ExitCode == 0)
+                    {
+                        processResult.Success = true;
+                    }
+                    else
+                    {
+                        Log.Warn(processResult.StandardError);
+                        processResult.Success = false;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception);
+                processResult.StandardError = exception.Message;
+                processResult.Success = false;
+            }
+
             return processResult;
         }
     }

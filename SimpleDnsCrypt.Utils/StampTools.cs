@@ -50,7 +50,7 @@ namespace SimpleDnsCrypt.Utils
         {
             try
             {
-                if (!stamp.Substring(0, 7).Equals("sdns://"))
+                if (!stamp.StartsWith("sdns://"))
                 {
                     return null;
                 }

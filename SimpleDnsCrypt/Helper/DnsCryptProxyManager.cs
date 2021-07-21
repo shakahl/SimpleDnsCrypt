@@ -194,17 +194,17 @@ namespace SimpleDnsCrypt.Helper
         /// Get the list of available (active) resolvers for the enabled filters.
         /// </summary>
         /// <returns></returns>
-        public static List<AvailableResolver> GetAvailableResolvers()
+        public static async Task<List<AvailableResolver>> GetAvailableResolvers()
         {
             var resolvers = new List<AvailableResolver>();
             var dnsCryptProxyExecutablePath = DnsCryptProxyExecutablePath;
-            var result = ProcessHelper.ExecuteWithArguments(dnsCryptProxyExecutablePath, "-list -json");
+            var result = await ProcessHelper.ExecuteWithArgumentsAsync(dnsCryptProxyExecutablePath, "-list -json").ConfigureAwait(false);
             if (!result.Success) return resolvers;
             if (string.IsNullOrEmpty(result.StandardOutput)) return resolvers;
             try
             {
                 var res = JsonConvert.DeserializeObject<List<AvailableResolver>>(result.StandardOutput);
-                if (res.Count > 0)
+                if (res != null)
                 {
                     resolvers = res;
                 }
@@ -220,17 +220,17 @@ namespace SimpleDnsCrypt.Helper
         /// Get the list of all resolvers.
         /// </summary>
         /// <returns></returns>
-        public static List<AvailableResolver> GetAllResolversWithoutFilters()
+        public static async Task<List<AvailableResolver>> GetAllResolversWithoutFilters()
         {
             var resolvers = new List<AvailableResolver>();
             var dnsCryptProxyExecutablePath = DnsCryptProxyExecutablePath;
-            var result = ProcessHelper.ExecuteWithArguments(dnsCryptProxyExecutablePath, "-list-all -json");
+            var result = await ProcessHelper.ExecuteWithArgumentsAsync(dnsCryptProxyExecutablePath, "-list-all -json").ConfigureAwait(false);
             if (!result.Success) return resolvers;
             if (string.IsNullOrEmpty(result.StandardOutput)) return resolvers;
             try
             {
                 var res = JsonConvert.DeserializeObject<List<AvailableResolver>>(result.StandardOutput);
-                if (res.Count > 0)
+                if (res != null)
                 {
                     resolvers = res;
                 }
