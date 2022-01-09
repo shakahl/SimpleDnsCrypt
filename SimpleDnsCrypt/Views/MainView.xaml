@@ -9,6 +9,11 @@
              xmlns:customControls="clr-namespace:SimpleDnsCrypt.Controls"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:models="clr-namespace:SimpleDnsCrypt.Models"
+             xmlns:viewmodels="clr-namespace:SimpleDnsCrypt.ViewModels" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
              lex:LocalizeDictionary.DesignCulture="en"
              lex:LocalizeDictionary.OutputMissingKeys="False"
              lex:ResxLocalizationProvider.DefaultAssembly="SimpleDnsCrypt"
@@ -506,7 +511,8 @@
                                                   Margin="0" AutoGenerateColumns="False" CanUserAddRows="False"
                                                   CanUserDeleteRows="False"
                                                   VirtualizingStackPanel.VirtualizationMode="Recycling"
-                                                  VirtualizingStackPanel.IsVirtualizing="True">
+                                                  VirtualizingStackPanel.IsVirtualizing="True"
+                                                  d:DataContext="{d:DesignInstance Type=models:AvailableResolver}">
                                             <DataGrid.Columns>
                                                 <DataGridCheckBoxColumn Header="Enabled"
                                                                         Binding="{Binding IsInServerList}" />
@@ -566,6 +572,14 @@
                                                 <DataGridCheckBoxColumn Header="NoFilter" 
                                                                         IsReadOnly="True" 
                                                                         Binding="{Binding NoFilter}"/>
+                                                <DataGridTextColumn IsReadOnly="True" Header="Description"
+                                                                    Binding="{Binding Description}" Width="400">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
                                             </DataGrid.Columns>
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate DataType="{x:Type models:AvailableResolver}">
