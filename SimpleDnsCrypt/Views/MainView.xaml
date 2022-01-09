@@ -502,6 +502,7 @@
                                                    Foreground="{Binding DnscryptProxyConfiguration.require_nofilter,Converter={StaticResource BoolToForegroundConverter}}"
                                                    Margin="5,5,0,2" />
                                     </StackPanel>
+                                    <TextBox controls:TextBoxHelper.Watermark="Search" Text="{Binding ResolverFilter.Value, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition

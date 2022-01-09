@@ -13,10 +13,14 @@ using System.Diagnostics;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using SimpleDnsCrypt.Utils.Models;
 using TabControl = System.Windows.Controls.TabControl;
 
@@ -111,7 +115,10 @@ namespace SimpleDnsCrypt.ViewModels
             _addressBlockLogViewModel = new AddressBlockLogViewModel(_windowManager, _events);
             _addressBlacklistViewModel = new AddressBlacklistViewModel(_windowManager, _events);
             _cloakAndForwardViewModel = new CloakAndForwardViewModel(_windowManager, _events);
-            _resolvers = new BindableCollection<AvailableResolver>();
+            Resolvers = new BindableCollection<AvailableResolver>();
+            ResolverFilter.Throttle(TimeSpan.FromMilliseconds(100))
+               .ObserveOnUIDispatcher()
+               .Subscribe(_ => CollectionViewSource.GetDefaultView(Resolvers).Refresh());
             _relays = new BindableCollection<StampFileEntry>();
         }
 
@@ -403,10 +410,14 @@ namespace SimpleDnsCrypt.ViewModels
             get => _resolvers;
             set
             {
+                var view = CollectionViewSource.GetDefaultView(value);
+                view.Filter = o => FilterResolver((AvailableResolver)o);
                 _resolvers = value;
                 NotifyOfPropertyChange(() => Resolvers);
             }
         }
+
+        public ReactiveProperty<string> ResolverFilter { get; set; } = new ReactiveProperty<string>("");
 
         /// <summary>
         /// Closing the main window.
@@ -478,6 +489,14 @@ namespace SimpleDnsCrypt.ViewModels
                 ReloadLoadNetworkInterfaces();
                 NotifyOfPropertyChange(() => ShowHiddenCards);
             }
+        }
+
+        public bool FilterResolver(AvailableResolver resolver)
+        {
+            var filter = ResolverFilter.Value;
+            return string.IsNullOrWhiteSpace(filter) 
+                || resolver.Name.Contains(filter, StringComparison.InvariantCultureIgnoreCase) 
+                || resolver.Description.Contains(filter, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public void Initialize()
