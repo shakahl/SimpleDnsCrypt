@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using Caliburn.Micro;
@@ -18,20 +19,35 @@ namespace SimpleDnsCrypt.ViewModels
         public ReactiveCommand<Unit, Unit> CancelCommand { get; }
         public ReactiveProperty<string> Name { get; }
 
-        public ReactiveProperty<string> Stamp { get; } = new ReactiveProperty<string>().SetValidateNotifyError(s =>
+        public ReactiveProperty<string> Stamp { get; } = new ReactiveProperty<string>("").SetValidateNotifyError(s =>
         {
             try
             {
-                if (StampTools.Decode(s)?.IsValid ?? false)
+                List<string> issues;
+                try
                 {
-                    return null;
+                    issues = StampTools.Decode(s)?.ValidationIssues.ToList();
+                }
+                catch (Exception ex)
+                {
+                    return $"Failed to decode the stamp: {ex.Message}";
                 }
 
-                return "Failed to decode stamp";
+                if (issues == null)
+                {
+                    return "Failed to decode the stamp: stamp is too short or in invalid format";
+                }
+
+                if (issues.Any())
+                {
+                    return string.Join("\n", issues);
+                }
+
+                return null;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return e.Message;
+                return ex.Message;
             }
         });
 
@@ -39,7 +55,11 @@ namespace SimpleDnsCrypt.ViewModels
 
         public AddCustomResolverViewModel()
         {
-            Name = new ReactiveProperty<string>().SetValidateNotifyError(s => ExistingNames.Contains(s) ? $"Name {s} is already present in the server list" : null);
+            Name = new ReactiveProperty<string>("").SetValidateNotifyError(s =>
+            {
+                if (string.IsNullOrWhiteSpace(s)) return "Name must not be empty";
+                return ExistingNames.Contains(s) ? $"Name {s} is already present in the server list" : null;
+            });
             OkCommand = ReactiveCommand.CreateFromTask(() => TryCloseAsync(true), Name.ObserveHasErrors.CombineLatest(Stamp.ObserveHasErrors, (a, b) => !a && !b));
             CancelCommand = ReactiveCommand.CreateFromTask(() => TryCloseAsync(false));
         }

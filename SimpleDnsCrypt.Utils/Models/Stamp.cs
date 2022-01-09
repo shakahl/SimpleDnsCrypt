@@ -1,4 +1,6 @@
-﻿namespace SimpleDnsCrypt.Utils.Models
+﻿using System.Collections.Generic;
+
+namespace SimpleDnsCrypt.Utils.Models
 {
     public class Stamp
     {
@@ -11,28 +13,48 @@
         public string Hostname { get; set; }
         public string Path { get; set; }
         public int Port { get; set; }
-        public bool IsValid
+
+        public IEnumerable<string> ValidationIssues
         {
             get
             {
                 if (Protocol == StampProtocol.DnsCrypt)
                 {
-                    return !string.IsNullOrEmpty(Address) &&
-                           !string.IsNullOrEmpty(PublicKey);
+                    if (string.IsNullOrEmpty(Address))
+                    {
+                        yield return "Empty address";
+                    }
+
+                    if (string.IsNullOrEmpty(PublicKey))
+                    {
+                        yield return "Empty public key";
+                    }
+
+                    yield break;
                 }
 
                 if (Protocol == StampProtocol.DoH)
                 {
-                    return !string.IsNullOrEmpty(Hash) &&
-                           !string.IsNullOrEmpty(Hostname);
+                    if (string.IsNullOrEmpty(Hash))
+                    {
+                        yield return "Empty hash";
+                    }
+
+                    if (string.IsNullOrEmpty(Hostname))
+                    {
+                        yield return "Empty hostname";
+                    }
+
+                    yield break;
                 }
 
                 if (Protocol == StampProtocol.DNSCryptRelay)
                 {
-                    return true;
+                    yield break;
                 }
 
-                return false;
+                yield return $"Unsupported protocol {Protocol}. For now, only {nameof(StampProtocol.DnsCrypt)}, " +
+                             $"{nameof(StampProtocol.DoH)} and {StampProtocol.DNSCryptRelay} are supported";
             }
         }
     }
