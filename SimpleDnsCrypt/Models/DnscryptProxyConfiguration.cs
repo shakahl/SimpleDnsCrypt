@@ -7,6 +7,7 @@ using System.IO;
 using SimpleDnsCrypt.Utils.Models;
 
 // ReSharper disable InconsistentNaming
+#pragma warning disable IDE1006 // Naming Styles
 
 namespace SimpleDnsCrypt.Models
 {
@@ -1080,3 +1081,4 @@ namespace SimpleDnsCrypt.Models
         public string stamp { get; set; }
     }
 }
+#pragma warning restore IDE1006 // Naming Styles
