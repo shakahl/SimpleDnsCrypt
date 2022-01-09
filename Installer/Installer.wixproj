@@ -15,12 +15,22 @@
   <PropertyGroup>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineSolutionProperties>false</DefineSolutionProperties>
+    <LinkerBindInputPaths>..\publish\exe</LinkerBindInputPaths>
+    <DefineConstants>BasePath=..\publish\exe</DefineConstants>
+    <HarvestAutogenerateGuids>false</HarvestAutogenerateGuids>
+    <HarvestGenerateGuidsNow>true</HarvestGenerateGuidsNow>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
-    <Compile Include="SimpleDnsCrypt.wxs" />
-  </ItemGroup>
-  <ItemGroup>
+    <HarvestDirectory Include="..\publish\exe">
+      <DirectoryRefId>INSTALLFOLDER</DirectoryRefId>
+      <ComponentGroupName>SimpleDNSCrypt_Project</ComponentGroupName>
+      <SuppressCom>true</SuppressCom>
+      <SuppressRegistry>true</SuppressRegistry>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+      <PreprocessorVariable>var.BasePath</PreprocessorVariable>
+    </HarvestDirectory>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
@@ -33,13 +43,5 @@
   </Target>
   <Target Name="BeforeBuild">
     <Exec Command="dotnet publish ..\SimpleDnsCrypt\SimpleDnsCrypt.csproj -o ..\publish\exe --self-contained -c $(Configuration) -r win10-x64" />
-    <PropertyGroup>
-      <LinkerBaseInputPaths>..\publish\exe</LinkerBaseInputPaths>
-      <DefineConstants>BasePath=..\publish\exe</DefineConstants>
-    </PropertyGroup>
-    <HeatDirectory OutputFile="SimpleDnsCrypt.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="SimpleDNSCrypt_Project" 
-                   SuppressCom="true" Directory="..\publish\exe" SuppressFragments="true" SuppressRegistry="true" 
-                   SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" 
-                   PreprocessorVariable="var.BasePath" />
   </Target>
 </Project>
