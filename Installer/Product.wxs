@@ -5,10 +5,10 @@
            UpgradeCode="b561df39-7e27-44e4-978d-22df6eea11b4">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
     <MediaTemplate EmbedCab="yes" />
-
     <Feature Id="ProductFeature" Title="SimpleDNSCrypt" Level="1" ConfigurableDirectory="INSTALLFOLDER">
       <ComponentGroupRef Id="SimpleDNSCrypt_Project" />
       <ComponentRef Id="Registry" />
+      <ComponentRef Id="ApplicationShortcut" />
     </Feature>
     <UIRef Id="WixUI_InstallDir" />
     <UIRef Id="WixUI_ErrorProgressText" />
@@ -21,6 +21,19 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="SimpleDNSCrypt" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="SimpleDNSCrypt">
+          <Component Id="ApplicationShortcut" Guid="32c0c96b-a096-44fa-b8cb-f5ca84f881dd">
+            <Shortcut Id="ApplicationStartMenuShortcut" 
+                  Name="SimpleDNSCrypt"
+                  Description="SimpleDNSCrypt"
+                  Target="[#fil12E9E5B12E65A378DD9B7308CCDA334E]"
+                  WorkingDirectory="INSTALLFOLDER"/>
+            <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+            <RegistryValue Root="HKCU" Key="Software\instantsc\SimpleDNSCrypt" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+          </Component>
+        </Directory>
       </Directory>
       <Component Id="Registry" Guid="161bb76a-8604-425b-8bd7-eeafb47c8cca">
         <!--<RegistryKey Root="HKLM" Key="Software\instantsc\SimpleDNSCrypt">
