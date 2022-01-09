@@ -21,9 +21,14 @@ namespace SimpleDnsCrypt.Utils
         public static string ToBase64(string arg)
         {
             if (arg == null) throw new ArgumentNullException(nameof(arg));
+            var lastQuadCount = arg.Length % 4;
+            if (lastQuadCount == 1)
+            {
+                throw new Exception("Invalid base64 string: the last four-character block cannot consist of only one character");
+            }
 
-            var s = arg
-                .PadRight(arg.Length + (4 - arg.Length % 4) % 4, '=')
+            var s = arg 
+                .PadRight(arg.Length + (4 - lastQuadCount) % 4, '=')
                 .Replace("_", "/")
                 .Replace("-", "+");
 
