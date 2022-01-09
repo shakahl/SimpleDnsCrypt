@@ -9,16 +9,25 @@
       <ComponentGroupRef Id="SimpleDNSCrypt_Project" />
       <ComponentRef Id="Registry" />
       <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ServiceConfig" />
     </Feature>
     <UIRef Id="WixUI_InstallDir" />
     <UIRef Id="WixUI_ErrorProgressText" />
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     <MajorUpgrade AllowDowngrades="yes" />
+    <CustomAction Id='UninstallHelper' FileKey='fil642D7E8813ED6B2EB95FB4C9D8255F7C' ExeCommand='' Execute="deferred" Impersonate="no" Return="check" />
+    <InstallExecuteSequence>
+      <DeleteServices>NOT UPGRADINGPRODUCTCODE</DeleteServices>
+      <Custom Action="UninstallHelper" After="InstallInitialize">NOT UPGRADINGPRODUCTCODE and REMOVE="ALL"</Custom>
+    </InstallExecuteSequence>
   </Product>
 
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
+      <Component Id="ServiceConfig" Guid="e2b3771e-5b8e-4e07-9f46-6133d09ee20b">
+        <ServiceControl Id="DnscryptServiceStopRemove" Name="dnscrypt-proxy" Remove="uninstall"/>
+      </Component>
       <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="SimpleDNSCrypt" />
       </Directory>

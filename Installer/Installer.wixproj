@@ -32,8 +32,12 @@
       <PreprocessorVariable>var.BasePath</PreprocessorVariable>
     </HarvestDirectory>
     <WixExtension Include="WixUIExtension">
-      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <HintPath>$(WixExtDir)WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
     </WixExtension>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
@@ -42,6 +46,7 @@
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
   </Target>
   <Target Name="BeforeBuild">
+    <Exec Command="dotnet publish ..\Uninstall\Uninstall.csproj -o ..\publish\exe --self-contained -c $(Configuration) -r win10-x64" />
     <Exec Command="dotnet publish ..\SimpleDnsCrypt\SimpleDnsCrypt.csproj -o ..\publish\exe --self-contained -c $(Configuration) -r win10-x64" />
   </Target>
 </Project>
