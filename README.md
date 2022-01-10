@@ -11,6 +11,8 @@ This was forked from [here](https://github.com/bitbeans/SimpleDnsCrypt) due to i
 
 Note that this repository has **no** connection to OpenCollective or any other form of funding.
 
+This is not a drop-in replacement in a sense that you will have to migrate your settings yourself, although the files themselves (if you copy them) should be fairly compatible.
+
 # Simple DNSCrypt
 Simple DNSCrypt is a simple management tool to configure [dnscrypt-proxy](https://github.com/jedisct1/dnscrypt-proxy) on windows based systems. 
 
@@ -42,6 +44,11 @@ For now, the only update option is to download and install the newest version ma
 
 ![maintab](img/preview/mainmenu.png)
 
+![maintab](img/preview/custom_resolver.png)
+
+<details>
+<summary>More</summary>
+
 ![resolvers](img/preview/resolvers.png)
 
 ![advanced](img/preview/advancedsettings.png)
@@ -51,6 +58,8 @@ For now, the only update option is to download and install the newest version ma
 ![blocklog](img/preview/blocklog.png)
 
 ![settings](img/preview/settings.png)
+</details>
+
 
 ## Built With
 
