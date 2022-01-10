@@ -15,9 +15,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="Properties\app.manifest" />
-    <None Include="dnscrypt-proxy\dnscrypt-proxy.toml">
+    <Content Include="dnscrypt-proxy\dnscrypt-proxy.toml.example">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="dnscrypt-proxy\LICENSE">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

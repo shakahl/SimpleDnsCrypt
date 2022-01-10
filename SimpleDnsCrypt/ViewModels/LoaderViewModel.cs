@@ -82,6 +82,13 @@ namespace SimpleDnsCrypt.ViewModels
                 {
                     ProgressText = LocalizationEx.GetUiString("loader_all_files_available", Thread.CurrentThread.CurrentCulture);
                 }
+                else if (validatedFolder.Count == 1 && validatedFolder.Single().Key == Global.DnsCryptConfigurationFile)
+                {
+                    File.Copy(
+                        Path.Combine(Directory.GetCurrentDirectory(), Global.DnsCryptProxyFolder, Global.DnsCryptExampleConfigurationFile),
+                        Path.Combine(Directory.GetCurrentDirectory(), Global.DnsCryptProxyFolder, Global.DnsCryptConfigurationFile),
+                        false);
+                }
                 else
                 {
                     var fileErrors = "";
@@ -185,6 +192,7 @@ namespace SimpleDnsCrypt.ViewModels
             catch (Exception exception)
             {
                 Log.Error(exception);
+                throw;
             }
         }
 

@@ -31,6 +31,7 @@
         public const string DnsCryptProxyExecutableName64 = "dnscrypt-proxy64.exe";
 
         public const string DnsCryptConfigurationFile = "dnscrypt-proxy.toml";
+        public const string DnsCryptExampleConfigurationFile = DnsCryptConfigurationFile + ".example";
 
         /// <summary>
         ///		Logfile name of dnscrypt-proxy.
@@ -87,7 +88,8 @@
         {
             DnsCryptProxyExecutableName64,
             DnsCryptProxyExecutableName86,
-            "dnscrypt-proxy.toml",
+            DnsCryptConfigurationFile,
+            DnsCryptExampleConfigurationFile,
             "LICENSE"
         };
 
