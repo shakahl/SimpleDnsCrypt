@@ -93,7 +93,9 @@ namespace SimpleDnsCrypt.Helper
             {
                 var dnscryptService = new ServiceController { ServiceName = DnsCryptProxyServiceName };
                 await dnscryptService.StopAsync(TimeSpan.FromMilliseconds(Global.ServiceStopTime));
-                return await dnscryptService.StartAsync(TimeSpan.FromMilliseconds(Global.ServiceStartTime));
+                var result = await dnscryptService.StartAsync(TimeSpan.FromMilliseconds(Global.ServiceStartTime));
+                await FlushSystemDnsCache();
+                return result;
             }
             catch (Exception exception)
             {
@@ -142,22 +144,26 @@ namespace SimpleDnsCrypt.Helper
                 var dnscryptService = new ServiceController { ServiceName = DnsCryptProxyServiceName };
 
                 var proxyStatus = dnscryptService.Status;
-                switch (proxyStatus)
+                var result = proxyStatus switch
                 {
-                    case ServiceControllerStatus.ContinuePending:
-                    case ServiceControllerStatus.Paused:
-                    case ServiceControllerStatus.PausePending:
-                    case ServiceControllerStatus.Stopped:
-                    case ServiceControllerStatus.StopPending:
-                        return await dnscryptService.StartAsync(TimeSpan.FromMilliseconds(Global.ServiceStartTime));
-                }
-                return dnscryptService.Status == ServiceControllerStatus.Running;
+                    ServiceControllerStatus.StartPending => 
+                        await dnscryptService.WaitForStatusAsync(ServiceControllerStatus.Running, TimeSpan.FromMilliseconds(Global.ServiceStartTime)),
+                    ServiceControllerStatus.Running => true,
+                    _ => await dnscryptService.StartAsync(TimeSpan.FromMilliseconds(Global.ServiceStartTime))
+                };
+                await FlushSystemDnsCache();
+                return result;
             }
             catch (Exception exception)
             {
                 Log.Error(exception);
                 return false;
             }
+        }
+
+        public static async Task FlushSystemDnsCache()
+        {
+            await ProcessHelper.ExecuteWithArgumentsAsync("ipconfig", "/flushdns");
         }
 
         /// <summary>
