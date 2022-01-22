@@ -170,12 +170,9 @@ namespace SimpleDnsCrypt.Helper
         {
             try
             {
-                if (dnsServers == null)
-                {
-                    dnsServers = new List<DnsServer>();
-                }
+                dnsServers ??= new List<DnsServer>();
 
-                var delete4 = ProcessHelper.ExecuteWithArguments("netsh", "interface ipv4 delete dns \"" + localNetworkInterface.Name + "\" all");
+                var delete4 = ProcessHelper.ExecuteWithArguments("netsh", $"interface ipv4 delete dns \"{localNetworkInterface.Name}\" all");
                 if (delete4 != null)
                 {
                     if (!delete4.Success)
@@ -188,7 +185,7 @@ namespace SimpleDnsCrypt.Helper
                     Log.Warn("failed to delete DNS (IPv4)");
                 }
 
-                var delete6 = ProcessHelper.ExecuteWithArguments("netsh", "interface ipv6 delete dns \"" + localNetworkInterface.Name + "\" all");
+                var delete6 = ProcessHelper.ExecuteWithArguments("netsh", $"interface ipv6 delete dns \"{localNetworkInterface.Name}\" all");
                 if (delete6 != null)
                 {
                     if (!delete6.Success)
@@ -205,7 +202,7 @@ namespace SimpleDnsCrypt.Helper
                 {
                     if (dnsServer.Type == NetworkInterfaceComponent.IPv4)
                     {
-                        var add4 = ProcessHelper.ExecuteWithArguments("netsh", "interface ipv4 add dns \"" + localNetworkInterface.Name + "\" " + dnsServer.Address + " validate=no");
+                        var add4 = ProcessHelper.ExecuteWithArguments("netsh", $"interface ipv4 add dns \"{localNetworkInterface.Name}\" {dnsServer.Address} validate=no");
                         if (add4 != null)
                         {
                             if (!add4.Success)
@@ -220,7 +217,7 @@ namespace SimpleDnsCrypt.Helper
                     }
                     else
                     {
-                        var add6 = ProcessHelper.ExecuteWithArguments("netsh", "interface ipv6 add dns \"" + localNetworkInterface.Name + "\" " + dnsServer.Address + " validate=no");
+                        var add6 = ProcessHelper.ExecuteWithArguments("netsh", $"interface ipv6 add dns \"{localNetworkInterface.Name}\" {dnsServer.Address} validate=no");
                         if (add6 != null)
                         {
                             if (!add6.Success)

@@ -24,71 +24,72 @@ namespace SimpleDnsCrypt.Helper
             try
             {
                 const int timeout = 9000;
-                using (var process = new Process())
+                using var process = new Process
                 {
-                    process.StartInfo.FileName = filename;
-                    process.StartInfo.Arguments = arguments;
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = true;
-                    process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    process.StartInfo.RedirectStandardOutput = true;
-                    process.StartInfo.RedirectStandardError = true;
-
-                    var output = new StringBuilder();
-                    var error = new StringBuilder();
-
-                    using (var outputWaitHandle = new AutoResetEvent(false))
-                    using (var errorWaitHandle = new AutoResetEvent(false))
+                    StartInfo =
                     {
-                        process.OutputDataReceived += (sender, e) =>
-                        {
-                            if (e.Data == null)
-                            {
-                                outputWaitHandle.Set();
-                            }
-                            else
-                            {
-                                output.AppendLine(e.Data);
-                            }
-                        };
-                        process.ErrorDataReceived += (sender, e) =>
-                        {
-                            if (e.Data == null)
-                            {
-                                errorWaitHandle.Set();
-                            }
-                            else
-                            {
-                                error.AppendLine(e.Data);
-                            }
-                        };
-                        process.Start();
-                        process.BeginOutputReadLine();
-                        process.BeginErrorReadLine();
-                        if (process.WaitForExit(timeout) &&
-                            outputWaitHandle.WaitOne(timeout) &&
-                            errorWaitHandle.WaitOne(timeout))
-                        {
-                            if (process.ExitCode == 0)
-                            {
-                                processResult.StandardOutput = output.ToString();
-                                processResult.StandardError = error.ToString();
-                                processResult.Success = true;
-                            }
-                            else
-                            {
-                                processResult.StandardOutput = output.ToString();
-                                processResult.StandardError = error.ToString();
-                                Log.Warn(processResult.StandardError);
-                                processResult.Success = false;
-                            }
-                        }
-                        else
-                        {
-                            // Timed out.
-                            throw new Exception("Timed out");
-                        }
+                        FileName = filename,
+                        Arguments = arguments,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
                     }
+                };
+
+                var output = new StringBuilder();
+                var error = new StringBuilder();
+
+                using var outputWaitHandle = new AutoResetEvent(false);
+                using var errorWaitHandle = new AutoResetEvent(false);
+                process.OutputDataReceived += (_, e) =>
+                {
+                    if (e.Data == null)
+                    {
+                        outputWaitHandle.Set();
+                    }
+                    else
+                    {
+                        output.AppendLine(e.Data);
+                    }
+                };
+                process.ErrorDataReceived += (_, e) =>
+                {
+                    if (e.Data == null)
+                    {
+                        errorWaitHandle.Set();
+                    }
+                    else
+                    {
+                        error.AppendLine(e.Data);
+                    }
+                };
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                if (process.WaitForExit(timeout) &&
+                    outputWaitHandle.WaitOne(timeout) &&
+                    errorWaitHandle.WaitOne(timeout))
+                {
+                    if (process.ExitCode == 0)
+                    {
+                        processResult.StandardOutput = output.ToString();
+                        processResult.StandardError = error.ToString();
+                        processResult.Success = true;
+                    }
+                    else
+                    {
+                        processResult.StandardOutput = output.ToString();
+                        processResult.StandardError = error.ToString();
+                        Log.Warn(processResult.StandardError);
+                        processResult.Success = false;
+                    }
+                }
+                else
+                {
+                    // Timed out.
+                    throw new Exception("Timed out");
                 }
             }
             catch (Exception exception)
@@ -127,51 +128,49 @@ namespace SimpleDnsCrypt.Helper
                 var output = new StringBuilder();
                 var error = new StringBuilder();
 
-                using (var outputWaitHandle = new SemaphoreSlim(0))
-                using (var errorWaitHandle = new SemaphoreSlim(0))
+                using var outputWaitHandle = new SemaphoreSlim(0);
+                using var errorWaitHandle = new SemaphoreSlim(0);
+                process.OutputDataReceived += (_, e) =>
                 {
-                    process.OutputDataReceived += (sender, e) =>
+                    if (e.Data == null)
                     {
-                        if (e.Data == null)
-                        {
-                            outputWaitHandle.Release();
-                        }
-                        else
-                        {
-                            output.AppendLine(e.Data);
-                        }
-                    };
-                    process.ErrorDataReceived += (sender, e) =>
-                    {
-                        if (e.Data == null)
-                        {
-                            errorWaitHandle.Release();
-                        }
-                        else
-                        {
-                            error.AppendLine(e.Data);
-                        }
-                    };
-                    process.Start();
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
-                    await Task.WhenAll(process.WaitForExitAsync(timeoutCancellation.Token),
-                                       outputWaitHandle.WaitAsync(timeoutCancellation.Token),
-                                       errorWaitHandle.WaitAsync(timeoutCancellation.Token))
-                              .ConfigureAwait(false);
-
-
-                    processResult.StandardOutput = output.ToString();
-                    processResult.StandardError = error.ToString();
-                    if (process.ExitCode == 0)
-                    {
-                        processResult.Success = true;
+                        outputWaitHandle.Release();
                     }
                     else
                     {
-                        Log.Warn(processResult.StandardError);
-                        processResult.Success = false;
+                        output.AppendLine(e.Data);
                     }
+                };
+                process.ErrorDataReceived += (_, e) =>
+                {
+                    if (e.Data == null)
+                    {
+                        errorWaitHandle.Release();
+                    }
+                    else
+                    {
+                        error.AppendLine(e.Data);
+                    }
+                };
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                await Task.WhenAll(process.WaitForExitAsync(timeoutCancellation.Token),
+                        outputWaitHandle.WaitAsync(timeoutCancellation.Token),
+                        errorWaitHandle.WaitAsync(timeoutCancellation.Token))
+                   .ConfigureAwait(false);
+
+
+                processResult.StandardOutput = output.ToString();
+                processResult.StandardError = error.ToString();
+                if (process.ExitCode == 0)
+                {
+                    processResult.Success = true;
+                }
+                else
+                {
+                    Log.Warn(processResult.StandardError);
+                    processResult.Success = false;
                 }
             }
             catch (Exception exception)

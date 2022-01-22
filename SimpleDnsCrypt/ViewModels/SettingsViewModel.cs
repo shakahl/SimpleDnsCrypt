@@ -1,5 +1,4 @@
 ﻿using Caliburn.Micro;
-using SimpleDnsCrypt.Models;
 using System.ComponentModel.Composition;
 
 namespace SimpleDnsCrypt.ViewModels
